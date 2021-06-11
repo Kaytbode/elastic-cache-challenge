@@ -62,7 +62,6 @@ def connect():
 
     finally:
         if(conn != None):
-            conn.close()
             print("PostgreSQL connection is now closed")    
 
 app = Flask(__name__) 
