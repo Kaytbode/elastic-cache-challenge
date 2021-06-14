@@ -1,4 +1,4 @@
-# /usr/bin/python2.7
+# /usr/bin/python3.6
 import psycopg2
 from configparser import ConfigParser
 from flask import Flask, request, render_template, g, abort

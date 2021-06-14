@@ -1,0 +1,30 @@
+Resources:
+  DBEC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Database access for acg challenges
+      GroupName: acg-apc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '5432'
+          ToPort: '5432'
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: '5432'
+          ToPort: '5432'
+          CidrIpv6: ::/0
+  ApcDB:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: apcdb
+      StorageType: gp2
+      AllocatedStorage: '20'
+      DBInstanceClass: db.t2.micro
+      Engine: Postgres
+      MasterUsername: postgres
+      MasterUserPassword: postgres11
+      PubliclyAccessible: True
+      VPCSecurityGroups:
+      - !GetAtt DBEC2SecurityGroup.GroupId
+      Port: '5432'
+    DeletionPolicy: Snapshot
